@@ -1,0 +1,18 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": { "es6": true, "browser": true, "node": true, "jest": true },
+  "plugins": ["prettier"],
+  "rules": {
+    "quotes": ["error", "single"],
+    "no-unused-vars": "warn",
+    "prettier/prettier": "error"
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"]
+}
