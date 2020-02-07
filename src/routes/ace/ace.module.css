@@ -4,5 +4,22 @@
   height: 100vh;
 }
 .Ace {
-  margin: auto;
+  font-size: 1em;
+  height: 100vh;
+  flex: 1;
+}
+.run {
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  right: 52%;
+  bottom: 20px;
+  background-color: cornflowerblue;
+}
+.code {
+  border: 0px;
+  border-left: 5px sandybrown solid;
+  flex: 1;
+  height: 100vh;
+  background-color: azure;
 }

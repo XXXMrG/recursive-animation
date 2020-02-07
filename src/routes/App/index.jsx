@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import style from './App.module.css';
-import Code from '../../components/CodeMirror';
 
 function App() {
   const config = {
@@ -19,9 +18,7 @@ function App() {
         <img src={logo} className={style.logo} alt="logo" />
       </header>
       <div className={style.App}>
-        <div className={style.editor}>
-          <Code {...config} />
-        </div>
+        <div className={style.editor}></div>
       </div>
     </React.Fragment>
   );
