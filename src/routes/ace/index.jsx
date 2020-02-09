@@ -6,14 +6,22 @@ import style from './ace.module.css';
 function AceEditor() {
   const code = useRef(null);
   const [codeValue, setCodeValue] = useState('');
-  const handleClick = () => {
-    const node = code.current.contentWindow.document;
-    node.open();
-    const codeString = editorRef.session.getValue();
-    node.write(`<script>${codeString}</script>`);
-    node.close();
-  };
   let editorRef = null;
+  // iframe src in the public folder
+  // the iframe document have some proxy function
+  const handleClick = () => {
+    const node = code.current.contentWindow;
+    let codeString = editorRef.session.getValue();
+    const consoleReg = /(^.|\b)console\.(\S+)/g;
+    codeString = codeString.replace(consoleReg, (all, blank, exe) => {
+      return `proxyConsole.${exe}`;
+    });
+    try {
+      node.eval(codeString);
+    } catch (e) {
+      node.eval(`outputError(${JSON.stringify(e.message)})`);
+    }
+  };
   const setRef = instance => {
     editorRef = instance;
   };
@@ -25,7 +33,7 @@ function AceEditor() {
           RUN CODE
         </button>
       </div>
-      <iframe className={style.code} ref={code}></iframe>
+      <iframe className={style.code} ref={code} src="./iframe.html"></iframe>
     </div>
   );
 }

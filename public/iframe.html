@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .result {
+      background-color: cornflowerblue;
+      width: 100%;
+      height: 10vh;
+    }
+  </style>
+</head>
+
+<body>
+  <span>result: </span>
+  <div class="result"></div>
+</body>
+<script>
+  window.fuck = function (data) {
+
+    return data;
+  }
+  window.proxyConsole = {
+    log(data) {
+      const container = document.querySelector('.result');
+      container.innerHTML = JSON.stringify(data);
+    }
+  }
+  window.outputError = function(data) {
+    const container = document.querySelector('.result');
+    container.innerHTML = `Error: ${data}`;
+  }
+</script>
+
+</html>
