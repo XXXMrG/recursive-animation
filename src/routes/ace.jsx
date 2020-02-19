@@ -1,5 +1,5 @@
 import React from 'react';
-import Ace from '../../components/Ace';
+import Ace from '../components/Ace';
 import { useRef, useEffect, useState } from 'react';
 import style from './ace.module.css';
 

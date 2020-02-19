@@ -3,7 +3,7 @@ import { useRef, useEffect } from 'react';
 import Ace from 'ace-builds';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/webpack-resolver.js';
-import './component.css';
+import './Ace.css';
 
 const AceComponent = props => {
   const Editor = useRef(null);

@@ -1,13 +1,24 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
-import Index from './App';
+import Index from './app';
 import Ace from './ace';
+import Example from './examples';
 
 const App = () => {
   return (
+    // the route have nest route shouldn't use exact
     <Router>
-      <Route exact component={Index} path="/" />
-      <Route exact component={Ace} path="/ace" />
+      <Switch>
+        <Route exact path="/ace">
+          <Ace />
+        </Route>
+        <Route path="/examples">
+          <Example />
+        </Route>
+        <Route exact path="/">
+          <Index />
+        </Route>
+      </Switch>
     </Router>
   );
 };

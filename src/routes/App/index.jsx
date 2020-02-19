@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import style from './App.module.css';
+import style from './app.module.css';
 
 function App() {
   const config = {
