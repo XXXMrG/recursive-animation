@@ -1,7 +1,6 @@
 .App {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
+  background-color: #EAEAEA;
+  min-height: 1000vh;
 }
 
 .logo {
@@ -39,3 +38,4 @@
     transform: rotate(360deg);
   }
 }
+
