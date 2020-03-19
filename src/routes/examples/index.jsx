@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
   useRouteMatch,
 } from 'react-router-dom';
 import Fibonacci from './fibonacci';
@@ -18,6 +19,7 @@ function Example() {
       <Switch>
         <Route exact path={path}>
           <h3>Please select a topic.</h3>
+          <Link to={`${url}/fibonacci`}>Fibonacci</Link>
         </Route>
         <Route path={`${path}/fibonacci`}>
           <Fibonacci />

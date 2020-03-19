@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import React from 'react';
 import { useRef, useEffect } from 'react';
 import GridLayout from 'react-grid-layout';
@@ -8,6 +8,23 @@ import Ace from './ace';
 import styles from './index.module.css';
 import Example from './examples';
 import { getScrollTop } from '../util/scroll';
+import ReactDomServer from 'react-dom/server';
+import tippy from 'tippy.js';
+import 'tippy.js/themes/light.css';
+
+const tippyDom = (
+  <Router>
+    <div>
+      <Link to="/examples/fibonacci" className={styles.link}>
+        fibonacci
+      </Link>
+      <Link to="/examples/fibonacci" className={styles.link}>
+        fibonacci
+      </Link>
+    </div>
+  </Router>
+);
+
 const App = () => {
   const headLayout = [
     { i: 'logo', x: 0, y: 0.25, w: 1, h: 1.5, static: true },
@@ -16,22 +33,34 @@ const App = () => {
     { i: '2', x: 5.5, y: 0, w: 1, h: 2, static: true },
     { i: '3', x: 7, y: 0, w: 1, h: 2, static: true },
   ];
-
   const headRef = useRef(null);
+  const exampleRef = useRef(null);
 
+  // header effect
   useEffect(() => {
     const headNode = headRef.current;
+    const exampleNode = exampleRef.current;
     window.addEventListener('scroll', () => {
       if (headNode.offsetHeight > getScrollTop()) {
         headNode.classList.remove(styles.sticky);
-        // console.log(headNode.className);
       } else {
         headNode.classList.add(styles.sticky);
       }
     });
+    // use ssr method get jsx html string
+    const tippyHtml = ReactDomServer.renderToStaticMarkup(tippyDom);
+    tippy(exampleNode, {
+      interactive: true,
+      placement: 'bottom',
+      content: tippyHtml,
+      theme: 'light',
+      distance: 20,
+      arrow: false,
+      allowHTML: true,
+    });
   }, []);
   return (
-    <div>
+    <Router>
       <div className={styles.header} ref={headRef}>
         <GridLayout
           compactType="horizontal"
@@ -50,16 +79,16 @@ const App = () => {
           </div>
           <div key="1">
             <div className={styles.itemLink}>
-              <a className={styles.link} href="#">
+              <Link className={styles.link} to="/">
                 Guide
-              </a>
+              </Link>
             </div>
           </div>
           <div key="2">
             <div className={styles.itemLink}>
-              <a className={styles.link} href="#">
+              <Link className={styles.link} to="/examples" ref={exampleRef}>
                 Examples
-              </a>
+              </Link>
             </div>
           </div>
           <div key="3">
@@ -71,21 +100,18 @@ const App = () => {
           </div>
         </GridLayout>
       </div>
-
-      <Router>
-        <Switch>
-          <Route exact path="/ace">
-            <Ace />
-          </Route>
-          <Route path="/examples">
-            <Example />
-          </Route>
-          <Route exact path="/">
-            <Index />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+      <Switch>
+        <Route exact path="/ace">
+          <Ace />
+        </Route>
+        <Route path="/examples">
+          <Example />
+        </Route>
+        <Route exact path="/">
+          <Index />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 
