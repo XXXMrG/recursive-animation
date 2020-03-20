@@ -1,5 +1,6 @@
 .ace-editor {
   position: relative;
+  margin: auto;
   width: inherit;
   height: inherit;
   font-size: inherit;

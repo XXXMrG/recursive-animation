@@ -114,13 +114,15 @@ async function drawTree(rootX, rootY, hasChild, value, layer, tipIns) {
   // return null;
 }
 
-function Fibtree() {
+function Fibtree(props) {
   const container = useRef(null);
+  const { number } = props;
   useEffect(() => {
     const scene = new Scene({
       container: container.current,
       width: 2400,
       height: 3200,
+      mode: 'stickyTop',
     });
     const layer = scene.layer();
     // the instance of tippy used to show node detail
@@ -148,7 +150,7 @@ function Fibtree() {
       await fib(num - 1, leftChild[0], leftChild[1]);
       await fib(num - 2, rightChild[0], rightChild[1]);
     }
-    fib(5, 1200, 200);
+    fib(number, 1200, 200);
   }, []);
   return <div ref={container} className={style.container}></div>;
 }

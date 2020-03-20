@@ -4,7 +4,6 @@ import { useRef, useEffect } from 'react';
 import GridLayout from 'react-grid-layout';
 import logo from './logo.svg';
 import Index from './app';
-import Ace from './ace';
 import styles from './index.module.css';
 import Example from './examples';
 import { getScrollTop } from '../util/scroll';
@@ -100,10 +99,7 @@ const App = () => {
           </div>
         </GridLayout>
       </div>
-      <Switch>
-        <Route exact path="/ace">
-          <Ace />
-        </Route>
+      <Switch className={styles.main}>
         <Route path="/examples">
           <Example />
         </Route>

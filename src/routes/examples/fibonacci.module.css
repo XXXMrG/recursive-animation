@@ -8,3 +8,8 @@
   width: 800px;
   border: 1px black solid;
 }
+
+.card {
+  height: 100%;
+  width: 100%;
+}

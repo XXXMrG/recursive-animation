@@ -7,11 +7,6 @@ import './Ace.css';
 
 const AceComponent = props => {
   const Editor = useRef(null);
-  const code = `function foo() {
-    somecode();
-    const num = 100;
-    return num;
-  }`;
   useEffect(() => {
     Ace.require('ace/ext/language_tools');
     let aceInstance = Ace.edit(Editor.current);
@@ -22,11 +17,14 @@ const AceComponent = props => {
       mode: 'ace/mode/javascript',
       theme: 'ace/theme/chaos',
     });
-    // eslint-disable-next-line react/prop-types
-    const { getRef, value } = props;
-    getRef(aceInstance);
-    aceInstance.session.setValue(value);
-  });
+    const { getRef, onChange, defaultValue } = props;
+    defaultValue && aceInstance.setValue(defaultValue);
+    getRef && getRef(aceInstance);
+    aceInstance.session.on('change', () => {
+      onChange(aceInstance.getValue());
+    });
+  }, []);
+
   return <div className="ace-editor" ref={Editor}></div>;
 };
 

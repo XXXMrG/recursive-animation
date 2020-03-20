@@ -1,7 +1,7 @@
 .header {
   background-color: #fff;
   transition: box-shadow 0.2s ease;
-  border-bottom: 1px #fafafa solid;
+  border-bottom: 1px #eaeaea solid;
   position: sticky;
   top: 0;
   z-index: 1099;
@@ -67,4 +67,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.main {
+  background-color: #eaeaea;
 }
