@@ -26,7 +26,7 @@ const Fibonacci = () => {
       layouts={layout}
       className="layout"
       rowHeight={100}
-      style={{ boxSizing: 'border-box', backgroundColor: '#eaeaea' }}
+      style={{ boxSizing: 'border-box' }}
       containerPadding={[10, 25]}
     >
       <div key="canvas" className="zi-card" style={{ padding: 0 }}>

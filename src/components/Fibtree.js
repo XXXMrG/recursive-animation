@@ -3,7 +3,6 @@ import { useRef, useEffect } from 'react';
 import * as spritejs from 'spritejs';
 import tippy, { followCursor } from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
-import style from './Fibtree.module.css';
 
 const { Scene, Polyline, Arc, Path } = spritejs;
 const getXoffset = (dis, angle) =>
@@ -152,7 +151,16 @@ function Fibtree(props) {
     }
     fib(number, 1200, 200);
   }, []);
-  return <div ref={container} className={style.container}></div>;
+  return (
+    <div
+      ref={container}
+      style={{
+        width: 'inherit',
+        height: 'inherit',
+        margin: 'auto',
+      }}
+    ></div>
+  );
 }
 
 export default Fibtree;

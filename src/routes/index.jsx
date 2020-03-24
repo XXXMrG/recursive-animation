@@ -17,8 +17,8 @@ const tippyDom = (
       <Link to="/examples/fibonacci" className={styles.link}>
         fibonacci
       </Link>
-      <Link to="/examples/fibonacci" className={styles.link}>
-        fibonacci
+      <Link to="/examples/hanoi" className={styles.link}>
+        Hanoi
       </Link>
     </div>
   </Router>
@@ -34,7 +34,6 @@ const App = () => {
   ];
   const headRef = useRef(null);
   const exampleRef = useRef(null);
-
   // header effect
   useEffect(() => {
     const headNode = headRef.current;
@@ -100,11 +99,11 @@ const App = () => {
         </GridLayout>
       </div>
       <Switch className={styles.main}>
-        <Route path="/examples">
-          <Example />
-        </Route>
         <Route exact path="/">
           <Index />
+        </Route>
+        <Route path="/examples">
+          <Example />
         </Route>
       </Switch>
     </Router>
