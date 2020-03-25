@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import * as spritejs from 'spritejs';
 import Pillar from '../assets/bang.svg';
 
@@ -16,8 +16,16 @@ const hanoi = (n, from, cache, to) => {
 
 // hanoi(3, 'A', 'B', 'C');
 
-const HanoiAnime = () => {
+const xA = 450;
+const xB = 1600;
+const xC = 1950;
+
+const HanoiAnime = props => {
   const container = useRef(null);
+  const { isRun } = props;
+  const [box, setBox] = useState(null);
+  const [layer, setLayer] = useState(null);
+  // init scene effect
   useEffect(() => {
     const scene = new Scene({
       container: container.current,
@@ -25,24 +33,54 @@ const HanoiAnime = () => {
       height: 1600,
       mode: 'stickyTop',
     });
-    const layer = scene.layer();
-    const box = new Sprite({
-      anchor: [0.5, 0.5],
-      size: [500, 50],
-      pos: [1000, 800],
-      bgcolor: 'pink',
-      borderWidth: 10,
-      borderRadius: 20,
-    });
-    const bang = new Sprite({
-      normalize: true,
-      texture: Pillar,
-      pos: [1000, 100],
-      size: [500, 500],
-    });
-    layer.append(bang);
-    layer.append(box);
-  });
+    setLayer(scene.layer());
+    setBox(
+      new Sprite({
+        anchor: [0.5, 0.5],
+        size: [600, 50],
+        pos: [450, 1280],
+        bgcolor: 'pink',
+        borderRadius: 20,
+        zIndex: 99,
+      })
+    );
+  }, []);
+  // init layer effect
+  useEffect(() => {
+    if (layer) {
+      layer.append(box);
+      const bangA = new Sprite({
+        texture: Pillar,
+        pos: [100, 350],
+        size: [700, 1000],
+      });
+      const bangB = bangA.cloneNode().attr({
+        pos: [850, 350],
+      });
+      const bangC = bangA.cloneNode().attr({
+        pos: [1600, 350],
+      });
+      layer.append(bangA, bangB, bangC);
+    }
+  }, [layer, box]);
+  // animation control effect
+  useEffect(() => {
+    if (isRun) {
+      box.animate(
+        [
+          { pos: [450, 1280] },
+          { pos: [450, 350] },
+          { pos: [xC, 200] },
+          { pos: [xC, 1280] },
+        ],
+        {
+          duration: 3000,
+          fill: 'both',
+        }
+      );
+    }
+  }, [isRun]);
+
   return (
     <div
       ref={container}

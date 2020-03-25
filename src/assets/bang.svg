@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="390px" height="552px" viewBox="0 0 390 552" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="398px" height="560px" viewBox="0 0 398 560" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
     <title>矩形</title>
     <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M8,552 C3.581722,552 5.41083001e-16,548.418278 0,544 C-5.41083001e-16,539.581722 3.581722,536 8,536 L187,536 L187,8 C187,3.581722 190.581722,8.11624501e-16 195,0 C199.418278,-8.11624501e-16 203,3.581722 203,8 L203,536 L382,536 C386.418278,536 390,539.581722 390,544 C390,548.418278 386.418278,552 382,552 L195,552 L195,552 L8,552 Z" id="path-1"></path>
+        <filter x="-1.0%" y="-0.7%" width="104.1%" height="102.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="4" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
     <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="桌面端" transform="translate(-480.000000, -220.000000)">
             <g id="矩形" transform="translate(480.000000, 220.000000)">
-                <rect fill="#000000" x="0" y="536" width="390" height="16" rx="8"></rect>
-                <rect fill="#020202" x="187" y="0" width="16" height="552" rx="8"></rect>
+                <g id="形状结合">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#5A7997" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
             </g>
         </g>
     </g>
