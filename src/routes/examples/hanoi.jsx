@@ -10,12 +10,14 @@ const layout = {
     { i: 'canvas', x: 3, y: 1, w: 6, h: 4, static: true },
     { i: 'run', x: 5, y: 0, w: 2, h: 0.5, static: true },
     { i: 'select', x: 3, y: 0, w: 2, h: 0.5, static: true },
+    { i: 'moves', x: 8, y: 0, w: 1, h: 0.5, static: true },
   ],
 };
 
 const Hanoi = () => {
   const [run, setRun] = useState(false);
   const [diskNumber, setDiskNumber] = useState(3);
+  const [moves, setMoves] = useState(0);
   return (
     <ResponsiveGridLayout
       layouts={layout}
@@ -26,7 +28,7 @@ const Hanoi = () => {
     >
       <div key="canvas" style={{ padding: 0 }}>
         <div className="zi-card" style={{ width: '100%', height: '100%' }}>
-          <HanoiAnime isRun={run} disks={diskNumber} />
+          <HanoiAnime isRun={run} disks={diskNumber} getMoves={setMoves} />
         </div>
       </div>
       <div key="run">
@@ -48,6 +50,7 @@ const Hanoi = () => {
               setDiskNumber(e.target.value);
               // to replay animation.
               setRun(false);
+              setMoves(0);
             }}
           >
             <option value={3}>3</option>
@@ -58,6 +61,11 @@ const Hanoi = () => {
             <option value={8}>8</option>
           </select>
           <i className="arrow zi-icon-up"></i>
+        </div>
+      </div>
+      <div key="moves">
+        <div className="zi-card" style={{ width: '100%', height: '100%' }}>
+          Moves:{moves}
         </div>
       </div>
     </ResponsiveGridLayout>

@@ -22,7 +22,7 @@ const rate = 70;
 
 const HanoiAnime = props => {
   const container = useRef(null);
-  const { isRun, disks } = props;
+  const { isRun, disks, getMoves } = props;
   const [box, setBox] = useState([]);
   const [layer, setLayer] = useState(null);
   const Pillars = {
@@ -30,6 +30,7 @@ const HanoiAnime = props => {
     B: { x: 1200, top: 1096 },
     C: { x: 1950, top: 1096 },
   };
+  let moves = 0;
   // init scene effect
   useEffect(() => {
     const scene = new Scene({
@@ -106,6 +107,7 @@ const HanoiAnime = props => {
         fill: 'both',
       }
     ).finished;
+    getMoves(++moves);
     Pillars[from].top += boxHeight;
     Pillars[to].top -= boxHeight;
     await runAnimation(deep - 1, cache, from, to);
