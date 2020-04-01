@@ -1,31 +1,49 @@
 import React from 'react';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Ace from 'ace-builds';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/webpack-resolver.js';
 import './Ace.css';
+import PropTypes from 'prop-types';
 
 const AceComponent = props => {
   const Editor = useRef(null);
+  const [aceInstance, setAceInstance] = useState(null);
+  const { onChange, defaultValue, options, value } = props;
   useEffect(() => {
     Ace.require('ace/ext/language_tools');
-    let aceInstance = Ace.edit(Editor.current);
-    aceInstance.setOptions({
-      enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableLiveAutocompletion: true,
-      mode: 'ace/mode/javascript',
-      theme: 'ace/theme/chaos',
-    });
-    const { getRef, onChange, defaultValue } = props;
-    defaultValue && aceInstance.setValue(defaultValue);
-    getRef && getRef(aceInstance);
-    aceInstance.session.on('change', () => {
-      onChange(aceInstance.getValue());
-    });
+    setAceInstance(Ace.edit(Editor.current));
   }, []);
 
+  useEffect(() => {
+    if (aceInstance) {
+      aceInstance.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true,
+        mode: 'ace/mode/javascript',
+        theme: 'ace/theme/chaos',
+        ...options,
+      });
+      defaultValue && aceInstance.setValue(defaultValue, 1);
+      aceInstance.session.on('change', () => {
+        onChange && onChange(aceInstance.getValue());
+      });
+    }
+  }, [aceInstance, options]);
+
+  useEffect(() => {
+    aceInstance && aceInstance.setValue(value, 1);
+  }, [value]);
+
   return <div className="ace-editor" ref={Editor}></div>;
+};
+
+AceComponent.propTypes = {
+  onChange: PropTypes.func,
+  defaultValue: PropTypes.string,
+  options: PropTypes.object,
+  value: PropTypes.string,
 };
 
 export default AceComponent;

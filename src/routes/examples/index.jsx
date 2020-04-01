@@ -9,7 +9,7 @@ function Example() {
   // us build relative links.
   const { path, url } = useRouteMatch();
   return (
-    <div style={{ backgroundColor: '#eaeaea' }}>
+    <div>
       <Switch>
         <Route exact path={path}>
           <h3>Please select a topic.</h3>

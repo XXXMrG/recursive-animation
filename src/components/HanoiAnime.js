@@ -2,6 +2,7 @@ import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import * as spritejs from 'spritejs';
 import Pillar from '../assets/bang.svg';
+import PropTypes from 'prop-types';
 
 const { Scene, Sprite } = spritejs;
 
@@ -17,7 +18,9 @@ const colors = [
 ];
 const boxHeight = 60;
 const bottomY = 1096;
+// smallest box width
 const base = 100;
+// box width rise rate
 const rate = 70;
 
 const HanoiAnime = props => {
@@ -85,6 +88,7 @@ const HanoiAnime = props => {
   }, [layer, box]);
 
   /**
+   * still have effect depend on box array
    * @param {number} deep should use disks - 1
    * @param {string} from from disk index
    * @param {string} cache cache disk index
@@ -107,7 +111,7 @@ const HanoiAnime = props => {
         fill: 'both',
       }
     ).finished;
-    getMoves(++moves);
+    getMoves && getMoves(++moves);
     Pillars[from].top += boxHeight;
     Pillars[to].top -= boxHeight;
     await runAnimation(deep - 1, cache, from, to);
@@ -130,6 +134,12 @@ const HanoiAnime = props => {
       }}
     ></div>
   );
+};
+
+HanoiAnime.propTypes = {
+  isRun: PropTypes.bool.isRequired,
+  disks: PropTypes.number.isRequired,
+  getMoves: PropTypes.func,
 };
 
 export default HanoiAnime;

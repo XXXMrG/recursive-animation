@@ -2,10 +2,12 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import React from 'react';
 import { useRef, useEffect } from 'react';
 import GridLayout from 'react-grid-layout';
-import logo from './logo.svg';
+import logo from '../assets/logo.svg';
 import Index from './app';
 import styles from './index.module.css';
 import Example from './examples';
+import Ace from './ace';
+import PlayGround from './playground';
 import { getScrollTop } from '../util/scroll';
 import ReactDomServer from 'react-dom/server';
 import tippy from 'tippy.js';
@@ -91,21 +93,29 @@ const App = () => {
           </div>
           <div key="3">
             <div className={styles.itemLink}>
-              <a className={styles.link} href="#">
+              <Link className={styles.link} to="/playground">
                 Playground
-              </a>
+              </Link>
             </div>
           </div>
         </GridLayout>
       </div>
-      <Switch className={styles.main}>
-        <Route exact path="/">
-          <Index />
-        </Route>
-        <Route path="/examples">
-          <Example />
-        </Route>
-      </Switch>
+      <div className={styles.main}>
+        <Switch>
+          <Route exact path="/">
+            <Index />
+          </Route>
+          <Route exact path="/ace">
+            <Ace />
+          </Route>
+          <Route exact path="/playground">
+            <PlayGround />
+          </Route>
+          <Route path="/examples">
+            <Example />
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 };

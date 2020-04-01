@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import HanoiAnime from '../../components/HanoiAnime';
 

@@ -12,8 +12,7 @@
   "rules": {
     "quotes": ["error", "single"],
     "no-unused-vars": "warn",
-    "prettier/prettier": "error",
-    "react/prop-types": "off"
+    "prettier/prettier": "error"
   },
   "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"]
 }

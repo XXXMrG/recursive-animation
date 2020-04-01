@@ -6,12 +6,11 @@ import style from './ace.module.css';
 function AceEditor() {
   const code = useRef(null);
   const [codeValue, setCodeValue] = useState('');
-  let editorRef = null;
   // iframe src in the public folder
   // the iframe document have some proxy function
   const handleClick = () => {
     const node = code.current.contentWindow;
-    let codeString = editorRef.session.getValue();
+    let codeString = codeValue;
     const consoleReg = /(^.|\b)console\.(\S+)/g;
     codeString = codeString.replace(consoleReg, (all, blank, exe) => {
       return `proxyConsole.${exe}`;
@@ -22,13 +21,11 @@ function AceEditor() {
       node.eval(`outputError(${JSON.stringify(e.message)})`);
     }
   };
-  const setRef = instance => {
-    editorRef = instance;
-  };
+
   return (
     <div className={style.App}>
       <div className={style.Ace}>
-        <Ace value={codeValue} getRef={setRef} />
+        <Ace onChange={setCodeValue} />
         <button className={style.run} onClick={handleClick}>
           RUN CODE
         </button>
