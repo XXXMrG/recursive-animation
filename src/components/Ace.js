@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 const AceComponent = props => {
   const Editor = useRef(null);
   const [aceInstance, setAceInstance] = useState(null);
-  const { onChange, defaultValue, options, value } = props;
+  const { onChange, defaultValue, options, value, onError } = props;
   useEffect(() => {
     Ace.require('ace/ext/language_tools');
     setAceInstance(Ace.edit(Editor.current));
@@ -29,6 +29,10 @@ const AceComponent = props => {
       aceInstance.session.on('change', () => {
         onChange && onChange(aceInstance.getValue());
       });
+      aceInstance.session.on('changeAnnotation', () => {
+        onError &&
+          onError(aceInstance.getValue(), aceInstance.session.getAnnotations());
+      });
     }
   }, [aceInstance, options]);
 
@@ -44,6 +48,7 @@ AceComponent.propTypes = {
   defaultValue: PropTypes.string,
   options: PropTypes.object,
   value: PropTypes.string,
+  onError: PropTypes.func,
 };
 
 export default AceComponent;
