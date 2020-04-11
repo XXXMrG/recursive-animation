@@ -29,7 +29,7 @@ npm run test
 
 👤 **XXXMrG**
 
-* Website: https://xkeith.space
+* Website: https://xkeith.tech
 * Github: [@XXXMrG](https://github.com/XXXMrG)
 
 ## Show your support

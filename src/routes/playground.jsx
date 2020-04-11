@@ -22,12 +22,15 @@ const PlayGround = () => {
   const [transform, setTransform] = useState('');
   const [funcNames, setFuncNames] = useState([]);
   const [target, setTarget] = useState('');
-  const myClg = (str, func, ...params) => {
-    console.log(str, func, ...params);
-  };
   const handleRun = async () => {
-    const { transCode } = await astWorker.getTransform(code, target);
-    setTransform(transCode);
+    // only parse static error
+    const { transCode, error: staticError } = await astWorker.getTransform(
+      code,
+      target
+    );
+    // execute error in there
+    const { stack, error: exeError } = await astWorker.exeCode(transCode);
+    setTransform(JSON.stringify(stack, null, '  '));
   };
 
   const handleError = async (data, error) => {

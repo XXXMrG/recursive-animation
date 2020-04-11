@@ -6,6 +6,25 @@ import template from 'babel-template';
 import * as Comlink from 'comlink';
 
 const astWork = {
+  stackInfo: [],
+  setStack(status, funcName, ...params) {
+    const node = {
+      status,
+      funcName,
+      params,
+    };
+    this.stackInfo.push(node);
+  },
+  exeCode(code) {
+    this.stackInfo = [];
+    let error = null;
+    try {
+      eval(code);
+    } catch (err) {
+      error = err;
+    }
+    return { stack: this.stackInfo, error };
+  },
   getFuncNames(code) {
     const funcNames = [];
     let error = null;
@@ -25,8 +44,12 @@ const astWork = {
     let transCode = '';
     let error = null;
     try {
-      const buildEnter = template('myClg("enter ", FUNC_NAME, PARAMS)');
-      const buildLeave = template('myClg("leave ", FUNC_NAME, PARAMS)');
+      const buildEnter = template(
+        'astWork.setStack("enter", FUNC_NAME, PARAMS)'
+      );
+      const buildLeave = template(
+        'astWork.setStack("leave", FUNC_NAME, PARAMS)'
+      );
       const ast = parse(code);
       const myVisitor = {
         Function(path) {
@@ -60,6 +83,7 @@ const astWork = {
       transCode = generate(ast).code;
     } catch (err) {
       error = err;
+      console.log(err);
     }
     return { transCode, error };
   },
