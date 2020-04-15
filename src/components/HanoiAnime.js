@@ -4,7 +4,7 @@ import * as spritejs from 'spritejs';
 import Pillar from '../assets/bang.svg';
 import PropTypes from 'prop-types';
 
-const { Scene, Sprite } = spritejs;
+const { Scene, Sprite, Label } = spritejs;
 
 const colors = [
   '#F15A57',
@@ -25,15 +25,25 @@ const rate = 70;
 
 const HanoiAnime = props => {
   const container = useRef(null);
-  const { isRun, disks, getMoves } = props;
+  const { isRun, disks, getMoves, getStack } = props;
   const [box, setBox] = useState([]);
   const [layer, setLayer] = useState(null);
+  const [stack, setStack] = useState([]);
   const Pillars = {
     A: { x: 450, top: 1096 },
     B: { x: 1200, top: 1096 },
     C: { x: 1950, top: 1096 },
   };
   let moves = 0;
+  const handleStack = (status, funcName, deep, from, cache, to) => {
+    setStack(prvStack => [
+      ...prvStack,
+      { status, funcName, deep: deep + 1, from, cache, to },
+    ]);
+  };
+  useEffect(() => {
+    getStack && getStack(stack);
+  }, [stack]);
   // init scene effect
   useEffect(() => {
     const scene = new Scene({
@@ -58,11 +68,26 @@ const HanoiAnime = props => {
       const bangC = bangA.cloneNode().attr({
         pos: [1600, 350],
       });
-      layer.append(bangA, bangB, bangC);
+      const textA = new Label('A').attr({
+        pos: [450, 1250],
+        fillColor: '#FF7A5A',
+        font: '81px "Menlo"',
+        anchor: [0.5, 0.5],
+      });
+      const textB = textA.cloneNode().attr({
+        text: 'B',
+        pos: [1200, 1250],
+      });
+      const textC = textA.cloneNode().attr({
+        text: 'C',
+        pos: [1950, 1250],
+      });
+      layer.append(bangA, bangB, bangC, textA, textB, textC);
     }
   }, [layer]);
   // box update effect
   useEffect(() => {
+    setStack([]);
     // remove old box.
     if (box.length !== 0) {
       box.forEach(value => value.remove());
@@ -95,7 +120,9 @@ const HanoiAnime = props => {
    * @param {string} to to disk index
    */
   const runAnimation = async (deep, from, cache, to) => {
+    handleStack('enter', 'Hanoi', deep, from, cache, to);
     if (deep === -1) {
+      handleStack('leave', 'Hanoi', deep, from, cache, to);
       return;
     }
     await runAnimation(deep - 1, from, to, cache);
@@ -115,6 +142,7 @@ const HanoiAnime = props => {
     Pillars[from].top += boxHeight;
     Pillars[to].top -= boxHeight;
     await runAnimation(deep - 1, cache, from, to);
+    handleStack('leave', 'Hanoi', deep, from, cache, to);
   };
   // animation control effect
   useEffect(() => {
@@ -140,6 +168,7 @@ HanoiAnime.propTypes = {
   isRun: PropTypes.bool.isRequired,
   disks: PropTypes.number.isRequired,
   getMoves: PropTypes.func,
+  getStack: PropTypes.func,
 };
 
 export default HanoiAnime;

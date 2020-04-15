@@ -2,14 +2,15 @@ import React from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import Ace from '../components/Ace';
 import styles from './playground.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import * as Comlink from 'comlink';
+import Table from '../components/Table';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 const layout = {
   lg: [
     { i: 'code', x: 1, y: 1, w: 4.5, h: 5, static: true },
-    { i: 'transform', x: 6.5, y: 1, w: 5.5, h: 5, static: true },
+    { i: 'transform', x: 6.5, y: 1, w: 5.5, h: 5, minH: 2, maxH: 8 },
     { i: 'funcSelect', x: 4, y: 0, w: 1.5, h: 1, static: true },
     { i: 'run', x: 6, y: 0, w: 2, h: 1, static: true },
   ],
@@ -19,9 +20,32 @@ const astWorker = Comlink.wrap(
 );
 const PlayGround = () => {
   const [code, setCode] = useState('');
-  const [transform, setTransform] = useState('');
+  const [stackInfo, setStackInfo] = useState([]);
+  const [paramsInfo, setParamsInfo] = useState([]);
   const [funcNames, setFuncNames] = useState([]);
   const [target, setTarget] = useState('');
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'STACK',
+        columns: [
+          { Header: '堆栈动作', accessor: 'status' },
+          { Header: '函数名', accessor: 'funcName' },
+        ],
+      },
+      {
+        Header: 'PARAMS',
+        columns:
+          paramsInfo.length > 0
+            ? paramsInfo.map(value => ({
+                Header: value,
+                accessor: value,
+              }))
+            : [{ Header: '函数参数列表' }],
+      },
+    ],
+    [paramsInfo]
+  );
   const handleRun = async () => {
     // only parse static error
     const { transCode, error: staticError } = await astWorker.getTransform(
@@ -29,8 +53,15 @@ const PlayGround = () => {
       target
     );
     // execute error in there
-    const { stack, error: exeError } = await astWorker.exeCode(transCode);
-    setTransform(JSON.stringify(stack, null, '  '));
+    const { stack, params, error: exeError } = await astWorker.exeCode(
+      transCode
+    );
+    console.log(transCode);
+    console.log(staticError);
+    console.log(stack);
+    console.log(exeError);
+    setStackInfo(stack);
+    setParamsInfo(params);
   };
 
   const handleError = async (data, error) => {
@@ -43,15 +74,16 @@ const PlayGround = () => {
   // target default value effect
   useEffect(() => {
     if (funcNames.length > 0) {
-      target === '' && setTarget(funcNames[0]);
+      setTarget(funcNames[0]);
     }
-  }, [target, funcNames]);
+  }, [funcNames]);
 
   return (
     <ResponsiveGridLayout
       layouts={layout}
       className="layout"
       rowHeight={100}
+      autoSize={true}
       style={{ boxSizing: 'border-box' }}
       containerPadding={[10, 25]}
     >
@@ -85,11 +117,8 @@ const PlayGround = () => {
         </div>
       </div>
       <div key="transform">
-        <div className={`${styles.card} zi-card`}>
-          <Ace
-            options={{ theme: 'ace/theme/xcode', readOnly: true }}
-            value={transform}
-          />
+        <div className={`zi-card ${styles.overflow}`}>
+          <Table columns={columns} data={stackInfo} />
         </div>
       </div>
     </ResponsiveGridLayout>

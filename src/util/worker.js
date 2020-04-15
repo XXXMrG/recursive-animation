@@ -5,25 +5,39 @@ import traverse from '@babel/traverse';
 import template from 'babel-template';
 import * as Comlink from 'comlink';
 
+const Print = (...params) => {
+  console.log(params);
+};
+
 const astWork = {
   stackInfo: [],
-  setStack(status, funcName, ...params) {
+  paramsInfo: [],
+  setStack(status, funcName, params) {
+    const stringifyParams = {};
+    Object.keys(params).forEach(value => {
+      stringifyParams[value] = JSON.stringify(params[value]);
+    });
     const node = {
       status,
       funcName,
-      params,
+      ...stringifyParams,
     };
     this.stackInfo.push(node);
+    if (this.paramsInfo.length === 0) {
+      this.paramsInfo = Object.keys(params);
+    }
   },
   exeCode(code) {
     this.stackInfo = [];
+    this.paramsInfo = [];
     let error = null;
     try {
       eval(code);
     } catch (err) {
+      this.stackInfo = [];
       error = err;
     }
-    return { stack: this.stackInfo, error };
+    return { stack: this.stackInfo, params: this.paramsInfo, error };
   },
   getFuncNames(code) {
     const funcNames = [];
@@ -57,11 +71,14 @@ const astWork = {
             return;
           }
           const funcName = target;
-          const paramsNode = path.node.params;
+          // use params node create object properties array
+          const paramsNode = path.node.params.map(value =>
+            t.objectProperty(t.identifier(value.name), t.identifier(value.name))
+          );
           path.get('body.body.0').insertBefore(
             buildEnter({
               FUNC_NAME: t.stringLiteral(funcName),
-              PARAMS: paramsNode,
+              PARAMS: t.objectExpression(paramsNode),
             })
           );
           path.get('body').traverse(
@@ -70,7 +87,7 @@ const astWork = {
                 path.insertBefore(
                   buildLeave({
                     FUNC_NAME: t.stringLiteral(this.funcName),
-                    PARAMS: this.paramsNode,
+                    PARAMS: t.objectExpression(this.paramsNode),
                   })
                 );
               },

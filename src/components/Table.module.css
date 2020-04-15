@@ -1,0 +1,6 @@
+tr {
+  transition: background-color .25s ease;
+}
+tr:hover {
+  background-color: var(--accents-2);
+}
