@@ -3,6 +3,7 @@ import React from 'react';
 import { useRef, useEffect } from 'react';
 import GridLayout from 'react-grid-layout';
 import logo from '../assets/logo.svg';
+import Footer from '../components/Footer';
 import Index from './app';
 import styles from './index.module.css';
 import Example from './examples';
@@ -33,6 +34,7 @@ const App = () => {
     { i: '1', x: 4, y: 0, w: 1, h: 2, static: true },
     { i: '2', x: 5.5, y: 0, w: 1, h: 2, static: true },
     { i: '3', x: 7, y: 0, w: 1, h: 2, static: true },
+    { i: 'github', x: 11, y: 0, w: 1, h: 2, static: true },
   ];
   const headRef = useRef(null);
   const exampleRef = useRef(null);
@@ -98,6 +100,24 @@ const App = () => {
               </Link>
             </div>
           </div>
+          <div key="github">
+            <div className={styles.github}>
+              <a
+                href="https://github.com/XXXMrG/recursive-animation"
+                rel="noopener noreferrer"
+                target="_blank"
+                aria-label="Project-GitHub"
+                className={styles.link}
+                style={{ fontSize: '1rem' }}
+              >
+                <i
+                  className="zi-icon-github"
+                  style={{ fontSize: '2rem', marginRight: '5px' }}
+                ></i>
+                GitHub
+              </a>
+            </div>
+          </div>
         </GridLayout>
       </div>
       <div className={styles.main}>
@@ -116,6 +136,7 @@ const App = () => {
           </Route>
         </Switch>
       </div>
+      <Footer />
     </Router>
   );
 };

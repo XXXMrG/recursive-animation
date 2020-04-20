@@ -43,6 +43,9 @@ const Hanoi = () => {
     ],
     []
   );
+  const asyncGetData = data => {
+    return new Promise((resolve, reject) => {});
+  };
   return (
     <ResponsiveGridLayout
       layouts={layout}

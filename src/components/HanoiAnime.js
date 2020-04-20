@@ -28,22 +28,16 @@ const HanoiAnime = props => {
   const { isRun, disks, getMoves, getStack } = props;
   const [box, setBox] = useState([]);
   const [layer, setLayer] = useState(null);
-  const [stack, setStack] = useState([]);
   const Pillars = {
     A: { x: 450, top: 1096 },
     B: { x: 1200, top: 1096 },
     C: { x: 1950, top: 1096 },
   };
   let moves = 0;
+  const stack = [];
   const handleStack = (status, funcName, deep, from, cache, to) => {
-    setStack(prvStack => [
-      ...prvStack,
-      { status, funcName, deep: deep + 1, from, cache, to },
-    ]);
+    stack.push({ status, funcName, deep: deep + 1, from, cache, to });
   };
-  useEffect(() => {
-    getStack && getStack(stack);
-  }, [stack]);
   // init scene effect
   useEffect(() => {
     const scene = new Scene({
@@ -87,7 +81,6 @@ const HanoiAnime = props => {
   }, [layer]);
   // box update effect
   useEffect(() => {
-    setStack([]);
     // remove old box.
     if (box.length !== 0) {
       box.forEach(value => value.remove());

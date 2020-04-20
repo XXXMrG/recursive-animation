@@ -28,7 +28,6 @@
 
 .link {
   margin: auto;
-  margin-bottom: 10px;
   color: var(--accents-3);
   transition: color 0.2s ease;
   font-size: 1.2rem;
@@ -37,6 +36,11 @@
   -webkit-box-align: center;
   align-items: center;
   text-decoration: none;
+}
+
+.github {
+  height: 100%;
+  display: flex;
 }
 
 .link:hover {
