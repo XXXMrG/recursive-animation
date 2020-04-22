@@ -1,14 +1,117 @@
 .App {
-  min-height: 100vh;
+  height: 2000px;
+  box-sizing: border-box;
+}
+
+.main {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgb(234, 234, 234);
+  text-align: center;
+  min-height: 564px;
+  background-image: radial-gradient(rgb(215, 215, 215) 1px, transparent 1px),
+    radial-gradient(rgb(215, 215, 215) 1px, transparent 1px);
+  background-size: 50px 50px;
+  margin: 0px auto;
+  padding: 0px;
+  background-position: 0px 0px, 25px 25px;
+}
+
+.intro {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1024px;
+}
+
+.header {
+  width: 100%;
+  margin-bottom: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-
-.editor {
-  background-color: white;
-  height: 500px;
-  width: 500px;
+.logo {
+  width: 50px;
+  margin: 10px;
+  pointer-events: none;
+  animation: App-logo-spin infinite 20s linear;
 }
 
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.title2 {
+  font-size: 4rem;
+  margin-top: -3rem;
+  margin-bottom: 0px;
+}
+
+.items {
+  position: absolute;
+  opacity: 0;
+  letter-spacing: -1px;
+  overflow: hidden;
+  animation: slider-words 16s cubic-bezier(0.19, 0.82, 0.84, 1.06) 0s infinite;
+}
+
+.slider {
+  line-height: 1.2em;
+  white-space: nowrap;
+  position: relative;
+  pointer-events: none;
+  margin: 0px auto;
+}
+
+.words {
+  width: 100%;
+  height: 2.8em;
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0px;
+}
+
+@keyframes slider-words {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, 25%, 0px);
+    visibility: visible;
+  }
+  0.9% {
+    opacity: 1;
+    transform: translate3d(-50%, 75%, 0px);
+  }
+  20% {
+    opacity: 1;
+    transform: translate3d(-50%, 75%, 0px);
+    visibility: visible;
+  }
+  21% {
+    opacity: 0;
+    transform: translate3d(-50%, 135%, 0px);
+    visibility: hidden;
+  }
+  100% {
+    opacity: 0;
+    visibility: visible;
+  }
+}
+
+.buttons {
+  width: 100%;
+  margin: 2rem auto;
+}
+
+.btn {
+  text-transform: none !important;
+  font-size: 1rem !important;
+  margin: 10px;
+}

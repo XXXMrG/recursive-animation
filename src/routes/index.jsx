@@ -30,7 +30,7 @@ const tippyDom = (
 const App = () => {
   const headLayout = [
     { i: 'logo', x: 0, y: 0.25, w: 1, h: 1.5, static: true },
-    { i: 'title', x: 1, y: 0, w: 2, h: 2, static: true },
+    { i: 'title', x: 1, y: 0, w: 3, h: 2, static: true },
     { i: '1', x: 4, y: 0, w: 1, h: 2, static: true },
     { i: '2', x: 5.5, y: 0, w: 1, h: 2, static: true },
     { i: '3', x: 7, y: 0, w: 1, h: 2, static: true },
