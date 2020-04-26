@@ -1,5 +1,4 @@
 .App {
-  height: 2000px;
   box-sizing: border-box;
 }
 
@@ -106,6 +105,8 @@
 }
 
 .buttons {
+  display: flex;
+  justify-content: center;
   width: 100%;
   margin: 2rem auto;
 }
@@ -114,4 +115,8 @@
   text-transform: none !important;
   font-size: 1rem !important;
   margin: 10px;
+}
+
+.btn:hover {
+  text-decoration: none;
 }

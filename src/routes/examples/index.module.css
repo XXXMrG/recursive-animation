@@ -1,0 +1,32 @@
+.main {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+}
+
+.item {
+  width: 100%;
+  height: 100%;
+}
+
+.imgLink {
+  width: 100%;
+  height: 65%;
+  border-bottom: 1px solid var(--accents-2);
+}
+
+.imgLink img {
+  transition: opacity 0.2s ease 0s;
+}
+
+.imgLink img:hover {
+  opacity: 0.5;
+}
+
+.description {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 35%;
+}

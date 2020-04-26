@@ -44,7 +44,11 @@ function App() {
             <button className={`zi-btn success ${styles.btn}`}>
               Start Learning
             </button>
-            <button className={`zi-btn ${styles.btn}`}>Show Examples</button>
+            <div>
+              <a href="/examples" className={`zi-btn ${styles.btn}`}>
+                Show Examples
+              </a>
+            </div>
           </div>
         </div>
       </div>
