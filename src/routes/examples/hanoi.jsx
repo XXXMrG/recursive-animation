@@ -70,7 +70,7 @@ const Hanoi = () => {
             className="zi-select"
             value={diskNumber}
             onChange={e => {
-              setDiskNumber(e.target.value);
+              setDiskNumber(parseInt(e.target.value, 10));
               // to replay animation.
               setRun(false);
               setMoves(0);
