@@ -21,7 +21,7 @@ const Hanoi = () => {
   const [run, setRun] = useState(false);
   const [diskNumber, setDiskNumber] = useState(3);
   const [moves, setMoves] = useState(0);
-  const [data, setData] = useState([]);
+  const [stack, setStack] = useState({ data: [], loading: false });
   const columns = useMemo(
     () => [
       {
@@ -95,13 +95,13 @@ const Hanoi = () => {
             isRun={run}
             disks={diskNumber}
             getMoves={setMoves}
-            getStack={setData}
+            getStack={setStack}
           />
         </div>
       </div>
       <div key="table">
         <div className={`zi-card ${styles.table}`}>
-          <Table columns={columns} data={data} />
+          <Table columns={columns} data={stack.data} loading={stack.loading} />
         </div>
       </div>
     </ResponsiveGridLayout>

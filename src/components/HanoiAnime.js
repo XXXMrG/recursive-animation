@@ -141,7 +141,11 @@ const HanoiAnime = props => {
   useEffect(() => {
     if (isRun) {
       Pillars['A'].top -= disks * boxHeight;
-      runAnimation(disks - 1, 'A', 'B', 'C');
+      (async function() {
+        getStack && getStack({ data: [], loading: true });
+        await runAnimation(disks - 1, 'A', 'B', 'C');
+        getStack && getStack({ data: stack, loading: false });
+      })();
     }
   }, [isRun]);
 

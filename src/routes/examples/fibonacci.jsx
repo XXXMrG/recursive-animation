@@ -80,7 +80,7 @@ const Fibonacci = () => {
       <div key="canvas" className="zi-card" style={{ padding: 0 }}>
         <div className={styles.card}>
           <div className={styles.animation}>
-            <Fibtree number={deep} getStack={data => setStack(data)} />
+            <Fibtree number={deep} getStack={setStack} />
           </div>
           <div className={styles.description}>
             <p>
@@ -94,13 +94,7 @@ const Fibonacci = () => {
       </div>
       <div key="table">
         <div className={`zi-card ${styles.table}`}>
-          <LoadingOverlay
-            active={stack.loading}
-            spinner
-            text="Loading stack info"
-          >
-            <Table columns={columns} data={stack.data} />
-          </LoadingOverlay>
+          <Table columns={columns} data={stack.data} loading={stack.loading} />
         </div>
       </div>
     </ResponsiveGridLayout>
