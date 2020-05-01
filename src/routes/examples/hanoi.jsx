@@ -1,9 +1,12 @@
 import React from 'react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import HanoiAnime from '../../components/HanoiAnime';
 import styles from './hanoi.module.css';
 import Table from '../../components/Table';
+import ModelWithPage from '../../components/ModelWithPage';
+import withAnimation from '../../hoc/withAnimation';
+import { getHanoiTips } from '../../util/makeTips';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -17,10 +20,13 @@ const layout = {
   ],
 };
 
+const pages = getHanoiTips().map((value, index) => withAnimation(value, index));
+
 const Hanoi = () => {
   const [run, setRun] = useState(false);
   const [diskNumber, setDiskNumber] = useState(3);
   const [moves, setMoves] = useState(0);
+  const [open, setOpen] = useState(false);
   const [stack, setStack] = useState({ data: [], loading: false });
   const columns = useMemo(
     () => [
@@ -43,68 +49,93 @@ const Hanoi = () => {
     ],
     []
   );
-  const asyncGetData = data => {
-    return new Promise((resolve, reject) => {});
+  const closeHandler = () => {
+    setOpen(false);
   };
+  useEffect(() => {
+    setOpen(true);
+  }, []);
   return (
-    <ResponsiveGridLayout
-      layouts={layout}
-      className="layout"
-      rowHeight={100}
-      style={{ boxSizing: 'border-box' }}
-      containerPadding={[10, 25]}
-    >
-      <div key="run">
-        <div
-          className="zi-btn primary"
-          onClick={() => {
-            setRun(true);
-          }}
-        >
-          Run
-        </div>
-      </div>
-      <div key="select">
-        <div className="zi-select-container">
-          <select
-            className="zi-select"
-            value={diskNumber}
-            onChange={e => {
-              setDiskNumber(parseInt(e.target.value, 10));
-              // to replay animation.
-              setRun(false);
-              setMoves(0);
+    <>
+      <ResponsiveGridLayout
+        layouts={layout}
+        className="layout"
+        rowHeight={100}
+        style={{ boxSizing: 'border-box' }}
+        containerPadding={[10, 25]}
+      >
+        <div key="run">
+          <div
+            className="zi-btn primary"
+            onClick={() => {
+              setRun(true);
             }}
           >
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-            <option value={6}>6</option>
-            <option value={7}>7</option>
-            <option value={8}>8</option>
-          </select>
-          <i className="arrow zi-icon-up"></i>
+            Run
+          </div>
+          <div
+            className="zi-btn primary"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            open
+          </div>
         </div>
-      </div>
-      <div key="moves">
-        <div className={`zi-card ${styles.card}`}>Moves:{moves}</div>
-      </div>
-      <div key="canvas" style={{ padding: 0 }}>
-        <div className={`zi-card ${styles.card}`}>
-          <HanoiAnime
-            isRun={run}
-            disks={diskNumber}
-            getMoves={setMoves}
-            getStack={setStack}
-          />
+        <div key="select">
+          <div className="zi-select-container">
+            <select
+              className="zi-select"
+              value={diskNumber}
+              onChange={e => {
+                setDiskNumber(parseInt(e.target.value, 10));
+                // to replay animation.
+                setRun(false);
+                setMoves(0);
+              }}
+            >
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+              <option value={6}>6</option>
+              <option value={7}>7</option>
+              <option value={8}>8</option>
+            </select>
+            <i className="arrow zi-icon-up"></i>
+          </div>
         </div>
-      </div>
-      <div key="table">
-        <div className={`zi-card ${styles.table}`}>
-          <Table columns={columns} data={stack.data} loading={stack.loading} />
+        <div key="moves">
+          <div className={`zi-card ${styles.card}`}>Moves:{moves}</div>
         </div>
-      </div>
-    </ResponsiveGridLayout>
+        <div key="canvas" style={{ padding: 0 }}>
+          <div className={`zi-card ${styles.card}`}>
+            <HanoiAnime
+              isRun={run}
+              disks={diskNumber}
+              getMoves={setMoves}
+              getStack={setStack}
+            />
+          </div>
+        </div>
+        <div key="table">
+          <div className={`zi-card ${styles.table}`}>
+            <Table
+              columns={columns}
+              data={stack.data}
+              loading={stack.loading}
+            />
+          </div>
+        </div>
+      </ResponsiveGridLayout>
+      <ModelWithPage
+        open={open}
+        onClose={closeHandler}
+        pages={pages}
+        current={0}
+        title="如何使用？"
+        subTitle="汉诺塔与递归执行树"
+      />
+    </>
   );
 };
 

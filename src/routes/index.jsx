@@ -13,6 +13,7 @@ import { getScrollTop } from '../util/scroll';
 import ReactDomServer from 'react-dom/server';
 import tippy from 'tippy.js';
 import 'tippy.js/themes/light.css';
+import { ZEITUIProvider } from '@zeit-ui/react';
 
 const tippyDom = (
   <Router>
@@ -62,82 +63,84 @@ const App = () => {
     });
   }, []);
   return (
-    <Router>
-      <div className={styles.header} ref={headRef}>
-        <GridLayout
-          compactType="horizontal"
-          className="layout"
-          layout={headLayout}
-          cols={12}
-          rowHeight={30}
-          width={1200}
-          margin={[20, 0]}
-        >
-          <div key="logo" className={styles.logobox}>
-            <img src={logo} className={styles.logo}></img>
-          </div>
-          <div key="title">
-            <p className={styles.title}>Recursive Animtation</p>
-          </div>
-          <div key="1">
-            <div className={styles.itemLink}>
-              <Link className={styles.link} to="/">
-                Guide
-              </Link>
+    <ZEITUIProvider>
+      <Router>
+        <div className={styles.header} ref={headRef}>
+          <GridLayout
+            compactType="horizontal"
+            className="layout"
+            layout={headLayout}
+            cols={12}
+            rowHeight={30}
+            width={1200}
+            margin={[20, 0]}
+          >
+            <div key="logo" className={styles.logobox}>
+              <img src={logo} className={styles.logo}></img>
             </div>
-          </div>
-          <div key="2">
-            <div className={styles.itemLink}>
-              <Link className={styles.link} to="/examples" ref={exampleRef}>
-                Examples
-              </Link>
+            <div key="title">
+              <p className={styles.title}>Recursive Animtation</p>
             </div>
-          </div>
-          <div key="3">
-            <div className={styles.itemLink}>
-              <Link className={styles.link} to="/playground">
-                Playground
-              </Link>
+            <div key="1">
+              <div className={styles.itemLink}>
+                <Link className={styles.link} to="/">
+                  Guide
+                </Link>
+              </div>
             </div>
-          </div>
-          <div key="github">
-            <div className={styles.github}>
-              <a
-                href="https://github.com/XXXMrG/recursive-animation"
-                rel="noopener noreferrer"
-                target="_blank"
-                aria-label="Project-GitHub"
-                className={styles.link}
-                style={{ fontSize: '1rem' }}
-              >
-                <i
-                  className="zi-icon-github"
-                  style={{ fontSize: '2rem', marginRight: '5px' }}
-                ></i>
-                GitHub
-              </a>
+            <div key="2">
+              <div className={styles.itemLink}>
+                <Link className={styles.link} to="/examples" ref={exampleRef}>
+                  Examples
+                </Link>
+              </div>
             </div>
-          </div>
-        </GridLayout>
-      </div>
-      <div className={styles.main}>
-        <Switch>
-          <Route exact path="/">
-            <Index />
-          </Route>
-          <Route exact path="/ace">
-            <Ace />
-          </Route>
-          <Route exact path="/playground">
-            <PlayGround />
-          </Route>
-          <Route path="/examples">
-            <Example />
-          </Route>
-        </Switch>
-      </div>
-      <Footer />
-    </Router>
+            <div key="3">
+              <div className={styles.itemLink}>
+                <Link className={styles.link} to="/playground">
+                  Playground
+                </Link>
+              </div>
+            </div>
+            <div key="github">
+              <div className={styles.github}>
+                <a
+                  href="https://github.com/XXXMrG/recursive-animation"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  aria-label="Project-GitHub"
+                  className={styles.link}
+                  style={{ fontSize: '1rem' }}
+                >
+                  <i
+                    className="zi-icon-github"
+                    style={{ fontSize: '2rem', marginRight: '5px' }}
+                  ></i>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </GridLayout>
+        </div>
+        <div className={styles.main}>
+          <Switch>
+            <Route exact path="/">
+              <Index />
+            </Route>
+            <Route exact path="/ace">
+              <Ace />
+            </Route>
+            <Route exact path="/playground">
+              <PlayGround />
+            </Route>
+            <Route path="/examples">
+              <Example />
+            </Route>
+          </Switch>
+        </div>
+        <Footer />
+      </Router>
+    </ZEITUIProvider>
   );
 };
 

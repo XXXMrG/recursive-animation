@@ -20,3 +20,8 @@ code {
   --accents-5: #666;
   --accents-8: #111;
 }
+
+.wrapper {
+  width: fit-content !important;
+  margin-top: 100px;
+}
