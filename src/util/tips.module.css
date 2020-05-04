@@ -1,0 +1,20 @@
+.pgOne {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exImg {
+  height: 600px;
+}
+
+.exDes {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+}
+
+.pgTwo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

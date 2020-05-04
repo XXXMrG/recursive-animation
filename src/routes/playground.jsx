@@ -5,14 +5,22 @@ import styles from './playground.module.css';
 import { useState, useEffect, useMemo } from 'react';
 import * as Comlink from 'comlink';
 import Table from '../components/Table';
+import ModelWithPage from '../components/ModelWithPage';
+import Stack from '../components/Stack';
+import withAnimation from '../hoc/withAnimation';
+import { getPGTips } from '../util/makeTips';
+
+const pages = getPGTips().map((value, index) => withAnimation(value, index));
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 const layout = {
   lg: [
     { i: 'code', x: 1, y: 1, w: 4.5, h: 5, static: true },
-    { i: 'transform', x: 6.5, y: 1, w: 5.5, h: 5, minH: 2, maxH: 8 },
+    { i: 'stack', x: 3, y: 6.5, w: 6, h: 5, static: true },
+    { i: 'table', x: 6.5, y: 1, w: 5.5, h: 5, static: true },
     { i: 'funcSelect', x: 4, y: 0, w: 1.5, h: 1, static: true },
     { i: 'run', x: 6, y: 0, w: 2, h: 1, static: true },
+    { i: 'tips', x: 8, y: 0, w: 2, h: 1, static: true },
   ],
 };
 const astWorker = Comlink.wrap(
@@ -24,6 +32,7 @@ const PlayGround = () => {
   const [paramsInfo, setParamsInfo] = useState([]);
   const [funcNames, setFuncNames] = useState([]);
   const [target, setTarget] = useState('');
+  const [open, setOpen] = useState(false);
   const columns = useMemo(
     () => [
       {
@@ -71,57 +80,89 @@ const PlayGround = () => {
       setFuncNames(funcNames);
     }
   };
+
+  const closeHandler = () => {
+    setOpen(false);
+  };
   // target default value effect
   useEffect(() => {
     if (funcNames.length > 0) {
       setTarget(funcNames[0]);
     }
   }, [funcNames]);
+  //init effect
+  useEffect(() => {
+    setOpen(true);
+  }, []);
 
   return (
-    <ResponsiveGridLayout
-      layouts={layout}
-      className="layout"
-      rowHeight={100}
-      autoSize={true}
-      style={{ boxSizing: 'border-box' }}
-      containerPadding={[10, 25]}
-    >
-      <div key="funcSelect">
-        <div className="zi-select-container" style={{ width: '100%' }}>
-          <select
-            className="zi-select"
-            value={target}
-            onChange={e => {
-              setTarget(e.target.value);
+    <>
+      <ResponsiveGridLayout
+        layouts={layout}
+        className="layout"
+        rowHeight={100}
+        autoSize={true}
+        style={{ boxSizing: 'border-box' }}
+        containerPadding={[10, 25]}
+      >
+        <div key="funcSelect">
+          <div className="zi-select-container" style={{ width: '100%' }}>
+            <select
+              className="zi-select"
+              value={target}
+              onChange={e => {
+                setTarget(e.target.value);
+              }}
+            >
+              <option disabled>choose your func target</option>
+              {funcNames.map(value => (
+                <option value={value} key={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+            <i className="arrow zi-icon-up"></i>
+          </div>
+        </div>
+        <div key="run">
+          <div className="zi-btn primary" onClick={handleRun}>
+            RUN
+          </div>
+        </div>
+        <div key="tips">
+          <div
+            className="zi-btn success"
+            onClick={() => {
+              setOpen(true);
             }}
           >
-            <option disabled>choose your func target</option>
-            {funcNames.map(value => (
-              <option value={value} key={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-          <i className="arrow zi-icon-up"></i>
+            TIPS
+          </div>
         </div>
-      </div>
-      <div key="run">
-        <div className="zi-btn primary" onClick={handleRun}>
-          RUN
+        <div key="code">
+          <div className={`zi-card zi-dark ${styles.card}`}>
+            <Ace onChange={data => setCode(data)} onError={handleError} />
+          </div>
         </div>
-      </div>
-      <div key="code">
-        <div className={`zi-card zi-dark ${styles.card}`}>
-          <Ace onChange={data => setCode(data)} onError={handleError} />
+        <div key="table">
+          <div className={`zi-card ${styles.overflow}`}>
+            <Table columns={columns} data={stackInfo} />
+          </div>
         </div>
-      </div>
-      <div key="transform">
-        <div className={`zi-card ${styles.overflow}`}>
-          <Table columns={columns} data={stackInfo} />
+        <div key="stack">
+          <div className={`zi-card ${styles.card}`}>
+            <Stack data={stackInfo} />
+          </div>
         </div>
-      </div>
-    </ResponsiveGridLayout>
+      </ResponsiveGridLayout>
+      <ModelWithPage
+        title="如何使用？"
+        subTitle="查看递归函数的执行过程"
+        open={open}
+        onClose={closeHandler}
+        pages={pages}
+      />
+    </>
   );
 };
 

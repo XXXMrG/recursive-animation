@@ -7,16 +7,20 @@ import Table from '../../components/Table';
 import ModelWithPage from '../../components/ModelWithPage';
 import withAnimation from '../../hoc/withAnimation';
 import { getHanoiTips } from '../../util/makeTips';
+import Stack from '../../components/Stack';
+import Ace from '../../components/Ace';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const layout = {
   lg: [
     { i: 'canvas', x: 1, y: 1, w: 6, h: 4, static: true },
+    { i: 'stack', x: 1, y: 5.5, w: 6, h: 5, static: true },
     { i: 'run', x: 3, y: 0, w: 2, h: 0.5, static: true },
     { i: 'select', x: 1, y: 0, w: 2, h: 0.5, static: true },
     { i: 'moves', x: 6, y: 0, w: 1, h: 0.5, static: true },
-    { i: 'table', x: 7.5, y: 0, w: 4, h: 6, static: true },
+    { i: 'code', x: 7.5, y: 0, w: 4, h: 3, static: true },
+    { i: 'table', x: 7.5, y: 3.5, w: 4, h: 6, static: true },
   ],
 };
 
@@ -28,6 +32,14 @@ const Hanoi = () => {
   const [moves, setMoves] = useState(0);
   const [open, setOpen] = useState(false);
   const [stack, setStack] = useState({ data: [], loading: false });
+  const defaultValue = `function hanoi (deep, A, B, C) {
+  if (deep === 0) {
+    return;
+  }
+  hanoi(deep - 1, A, C, B);
+  console.log('move disk deep from A to C')
+  hanoi(deep - 1, B, A , C);
+}`;
   const columns = useMemo(
     () => [
       {
@@ -53,7 +65,7 @@ const Hanoi = () => {
     setOpen(false);
   };
   useEffect(() => {
-    setOpen(true);
+    setOpen(false);
   }, []);
   return (
     <>
@@ -117,6 +129,9 @@ const Hanoi = () => {
             />
           </div>
         </div>
+        <div key="code">
+          <Ace defaultValue={defaultValue} options={{ readOnly: true }} />
+        </div>
         <div key="table">
           <div className={`zi-card ${styles.table}`}>
             <Table
@@ -126,14 +141,18 @@ const Hanoi = () => {
             />
           </div>
         </div>
+        <div key="stack" style={{ padding: 0 }}>
+          <div className={`zi-card ${styles.card}`}>
+            <Stack data={stack.data} />
+          </div>
+        </div>
       </ResponsiveGridLayout>
       <ModelWithPage
         open={open}
         onClose={closeHandler}
         pages={pages}
-        current={0}
         title="如何使用？"
-        subTitle="汉诺塔与递归执行树"
+        subTitle="汉诺塔与递归执行栈"
       />
     </>
   );

@@ -23,6 +23,7 @@ const AceComponent = props => {
         enableLiveAutocompletion: true,
         mode: 'ace/mode/javascript',
         theme: 'ace/theme/chaos',
+        tabSize: 2,
         ...options,
       });
       defaultValue && aceInstance.setValue(defaultValue, 1);

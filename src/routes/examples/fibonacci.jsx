@@ -5,12 +5,11 @@ import Fibtree from '../../components/Fibtree';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import Ace from '../../components/Ace';
 import Table from '../../components/Table';
-import LoadingOverlay from 'react-loading-overlay';
+import Stack from '../../components/Stack';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const Fibonacci = () => {
-  const [code, setCode] = useState('');
   const [deep, setDeep] = useState(3);
   const [stack, setStack] = useState({ data: [], loading: false });
   const defaultValue = `function fibonacci(num) {
@@ -22,10 +21,11 @@ const Fibonacci = () => {
  }`;
   const layout = {
     lg: [
-      { i: 'canvas', x: 1, y: 1, w: 4.5, h: 4.5, static: true },
-      { i: 'editor', x: 6, y: 0, w: 5, h: 3, static: true },
-      { i: 'table', x: 6, y: 3, w: 5, h: 6, static: true },
-      { i: 'deep', x: 2, y: 0, w: 2, h: 1, static: true },
+      { i: 'canvas', x: 1.75, y: 0, w: 4.5, h: 4.5, static: true },
+      { i: 'stack', x: 1, y: 5, w: 6, h: 5, static: true },
+      { i: 'editor', x: 6.5, y: 0, w: 5, h: 3, static: true },
+      { i: 'table', x: 7.5, y: 3.5, w: 4, h: 6, static: true },
+      { i: 'deep', x: 0, y: 0, w: 1, h: 1, static: true },
     ],
   };
   const columns = useMemo(
@@ -70,11 +70,7 @@ const Fibonacci = () => {
       </div>
       <div key="editor" className="zi-card zi-dark" style={{ padding: '1px' }}>
         <div className={styles.card}>
-          <Ace
-            onChange={setCode}
-            defaultValue={defaultValue}
-            options={{ readOnly: true }}
-          />
+          <Ace defaultValue={defaultValue} options={{ readOnly: true }} />
         </div>
       </div>
       <div key="canvas" className="zi-card" style={{ padding: 0 }}>
@@ -90,6 +86,11 @@ const Fibonacci = () => {
               basic case，也是递归树的叶子结点，是递归函数的出口。
             </p>
           </div>
+        </div>
+      </div>
+      <div key="stack">
+        <div className={`zi-card ${styles.card}`}>
+          <Stack data={stack.data} />
         </div>
       </div>
       <div key="table">

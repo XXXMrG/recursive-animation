@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from 'react';
+import styles from './tips.module.css';
+import exImg from '../assets/pg-example.jpg';
 
 export function getHanoiTips() {
   return [
@@ -63,5 +65,38 @@ export function getHanoiTips() {
       alias quam commodi ex quos dignissimos officia. Quae accusamus ut quas
       officiis.
     </p>,
+  ];
+}
+
+export function getPGTips() {
+  return [
+    <div className={styles.pgOne}>
+      <img src={exImg} className={styles.exImg} alt="tips-example" />
+      <div className={styles.exDes}>
+        <h3>输入并选取要分析的递归函数</h3>
+        <ul>
+          <li>在代码输入框中输入想要分析执行过程的代码</li>
+          <li>代码可以包含多个函数过程，但至少包含一个递归函数</li>
+          <li>不要忘记在代码中启动函数调用</li>
+          <li>在上面的选择框中选择要进行分析的递归函数</li>
+          <li>
+            点击 <code>RUN</code> 来执行
+          </li>
+        </ul>
+      </div>
+    </div>,
+    <div className={styles.pgTwo}>
+      <h3>
+        <span>⚠️</span>注意事项
+      </h3>
+      <div style={{ width: '100%' }}></div>
+      <ul>
+        <li>
+          目前只支持 <code> JavaScript </code> 代码
+        </li>
+        <li>不要使用箭头函数</li>
+        <li>不支持尾递归，以为着你的代码必须存在显式递归过程</li>
+      </ul>
+    </div>,
   ];
 }

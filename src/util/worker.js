@@ -32,7 +32,8 @@ const astWork = {
     this.paramsInfo = [];
     let error = null;
     try {
-      eval(code);
+      let res = eval(code);
+      console.log(res);
     } catch (err) {
       this.stackInfo = [];
       error = err;
