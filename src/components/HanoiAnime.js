@@ -44,7 +44,7 @@ const HanoiAnime = props => {
       container: container.current,
       width: 2400,
       height: 1600,
-      mode: 'stickyTop',
+      mode: 'stickyHeight',
     });
     setLayer(scene.layer());
   }, []);
