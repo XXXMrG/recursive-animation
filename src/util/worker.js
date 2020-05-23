@@ -98,12 +98,12 @@ const astWork = {
             { funcName, paramsNode }
           );
           // build leave in code end.
-          path.get(`body.body.${lastNode}`).insertAfter(
-            buildLeave({
-              FUNC_NAME: t.stringLiteral(funcName),
-              PARAMS: t.objectExpression(paramsNode),
-            })
-          );
+          // path.get(`body.body.${lastNode}`).insertAfter(
+          //   buildLeave({
+          //     FUNC_NAME: t.stringLiteral(funcName),
+          //     PARAMS: t.objectExpression(paramsNode),
+          //   })
+          // );
         },
       };
       traverse(ast, myVisitor);
