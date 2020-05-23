@@ -74,6 +74,7 @@ const PlayGround = () => {
   };
 
   const handleError = async (data, error) => {
+    // TODO: add error tips.
     // no any static error. but still have parse error
     if (error.length === 0) {
       const { funcNames } = await astWorker.getFuncNames(data);

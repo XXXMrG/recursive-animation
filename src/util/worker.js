@@ -68,6 +68,8 @@ const astWork = {
       const ast = parse(code);
       const myVisitor = {
         Function(path) {
+          console.log(path);
+          const lastNode = path.node.body.body.length;
           if (path.node.id.name !== target) {
             return;
           }
@@ -82,6 +84,7 @@ const astWork = {
               PARAMS: t.objectExpression(paramsNode),
             })
           );
+          // build Leave in every return statement.
           path.get('body').traverse(
             {
               ReturnStatement(path) {
@@ -94,6 +97,13 @@ const astWork = {
               },
             },
             { funcName, paramsNode }
+          );
+          // build leave in code end.
+          path.get(`body.body.${lastNode}`).insertAfter(
+            buildLeave({
+              FUNC_NAME: t.stringLiteral(funcName),
+              PARAMS: t.objectExpression(paramsNode),
+            })
           );
         },
       };
