@@ -9,6 +9,7 @@ import ModelWithPage from '../components/ModelWithPage';
 import Stack from '../components/Stack';
 import withAnimation from '../hoc/withAnimation';
 import { getPGTips } from '../util/makeTips';
+//import Worker from '../util/ast.worker.js';
 
 const pages = getPGTips().map((value, index) => withAnimation(value, index));
 
@@ -23,8 +24,9 @@ const layout = {
     { i: 'tips', x: 8, y: 0, w: 2, h: 1, static: true },
   ],
 };
+//
 const astWorker = Comlink.wrap(
-  new Worker('../util/worker.js', { type: 'module' })
+  new Worker('../util/ast.worker.js', { type: 'module' })
 );
 const PlayGround = () => {
   const [code, setCode] = useState('');

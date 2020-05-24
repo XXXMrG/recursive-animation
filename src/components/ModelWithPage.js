@@ -11,8 +11,8 @@ const ModelWithPage = props => {
 
   useEffect(() => {
     setStatus({
-      prev: current == 0 ? true : false,
-      next: current == pages.length - 1 ? true : false,
+      prev: current === 0 ? true : false,
+      next: current === pages.length - 1 ? true : false,
     });
   }, [current]);
   return (

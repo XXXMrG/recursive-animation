@@ -71,6 +71,7 @@
     "husky": "^4.2.1",
     "prettier": "^1.19.1",
     "react-app-rewired": "^2.1.5",
+    "worker-loader": "^2.0.0",
     "worker-plugin": "^4.0.2"
   },
   "config": {
