@@ -68,7 +68,7 @@ const astWork = {
       const ast = parse(code);
       const myVisitor = {
         Function(path) {
-          const lastNode = path.node.body.body.length;
+          let lastNode = path.node.body.body.length;
           if (path.node.id.name !== target) {
             return;
           }
