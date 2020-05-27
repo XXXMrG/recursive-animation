@@ -13,7 +13,7 @@ import { getScrollTop } from '../util/scroll';
 import ReactDomServer from 'react-dom/server';
 import tippy from 'tippy.js';
 import 'tippy.js/themes/light.css';
-import { ZEITUIProvider } from '@zeit-ui/react';
+import { ZeitProvider } from '@zeit-ui/react';
 
 const tippyDom = (
   <Router>
@@ -63,7 +63,7 @@ const App = () => {
     });
   }, []);
   return (
-    <ZEITUIProvider>
+    <ZeitProvider>
       <Router>
         <div className={styles.header} ref={headRef}>
           <GridLayout
@@ -140,7 +140,7 @@ const App = () => {
         </div>
         <Footer />
       </Router>
-    </ZEITUIProvider>
+    </ZeitProvider>
   );
 };
 

@@ -9,14 +9,14 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@zeit-ui/react": "^1.0.0-rc.4",
-    "@zeit-ui/react-icons": "^1.2.1",
+    "@zeit-ui/react": "^1.5.1",
+    "@zeit-ui/react-icons": "^1.2.2",
     "@zeit-ui/style": "^0.9.4",
     "ace-builds": "^1.4.8",
     "babel-template": "^6.26.0",
     "babel-traverse": "^6.26.0",
     "babel-types": "^6.26.0",
-    "comlink": "^4.2.0",
+    "comlink": "^4.3.0",
     "file-loader": "^5.0.2",
     "framer-motion": "^1.10.3",
     "prop-types": "^15.7.2",
@@ -72,7 +72,7 @@
     "prettier": "^1.19.1",
     "react-app-rewired": "^2.1.5",
     "worker-loader": "^2.0.0",
-    "worker-plugin": "^4.0.2"
+    "worker-plugin": "^4.0.3"
   },
   "config": {
     "commitizen": {
