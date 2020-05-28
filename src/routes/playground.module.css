@@ -1,11 +1,43 @@
 .card {
   width: 100%;
   height: 100%;
-  padding: 2px !important;
 }
 
+.stackCard {
+  width: 100%;
+  height: 90%;
+}
+
+.consoleCard {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .overflow {
   width: 100%;
   height: 100%;
   overflow: auto;
+}
+
+.control {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.items {
+  min-width: 1px !important;
+  width: 100px !important;
+}
+
+.code {
+  margin-top: 30px;
+  height: 93%;
+}
+
+.description {
+  width: 100%;
+  margin-bottom: 12px;
 }

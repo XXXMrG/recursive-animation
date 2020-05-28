@@ -2,6 +2,7 @@
 import React from 'react';
 import styles from './tips.module.css';
 import exImg from '../assets/pg-example.jpg';
+import { Display, Image } from '@zeit-ui/react';
 
 export function getHanoiTips() {
   return [
@@ -71,7 +72,9 @@ export function getHanoiTips() {
 export function getPGTips() {
   return [
     <div className={styles.pgOne}>
-      <img src={exImg} className={styles.exImg} alt="tips-example" />
+      <Display shadow caption="系统会自动分析代码中包含的函数定义">
+        <Image src={exImg} height="350" width="512" alt="tips-example" />
+      </Display>
       <div className={styles.exDes}>
         <h3>输入并选取要分析的递归函数</h3>
         <ul>

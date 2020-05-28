@@ -31,14 +31,19 @@ const astWork = {
     this.stackInfo = [];
     this.paramsInfo = [];
     let error = null;
+    let res = null;
     try {
-      let res = eval(code);
-      console.log(res);
+      res = eval(code);
     } catch (err) {
       this.stackInfo = [];
       error = err;
     }
-    return { stack: this.stackInfo, params: this.paramsInfo, error };
+    return {
+      stack: this.stackInfo,
+      params: this.paramsInfo,
+      error,
+      result: res,
+    };
   },
   getFuncNames(code) {
     const funcNames = [];

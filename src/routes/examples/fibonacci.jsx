@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import styles from './fibonacci.module.css';
 import Fibtree from '../../components/Fibtree';
 import { Responsive, WidthProvider } from 'react-grid-layout';
@@ -82,7 +82,7 @@ const Fibonacci = () => {
             <p>
               求解斐波那契数列中第 num 项过程的递归函数执行树。
               <br />
-              相同颜色的节点代表着重复的函数调用，用 ⭕️标注的节点则是递归问题的
+              相同颜色的节点代表着重复的函数调用，用圆圈标注的节点则是递归问题的
               basic case，也是递归树的叶子结点，是递归函数的出口。
             </p>
           </div>
