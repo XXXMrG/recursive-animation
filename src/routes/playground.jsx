@@ -9,7 +9,7 @@ import ModelWithPage from '../components/ModelWithPage';
 import Stack from '../components/Stack';
 import withAnimation from '../hoc/withAnimation';
 import { getPGTips } from '../util/makeTips';
-import { Text, Display, Code, useToasts } from '@zeit-ui/react';
+import { Text, Display, Code, useToasts, Select } from '@zeit-ui/react';
 
 const pages = getPGTips().map((value, index) => withAnimation(value, index));
 
@@ -124,23 +124,20 @@ const PlayGround = () => {
           </div>
           <div className={`zi-card ${styles.card}`}>
             <div className={styles.control}>
-              <div className="zi-select-container">
-                <select
-                  className="zi-select"
-                  value={target}
-                  onChange={e => {
-                    setTarget(e.target.value);
-                  }}
-                >
-                  <option disabled>choose your func target</option>
-                  {funcNames.map(value => (
-                    <option value={value} key={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-                <i className="arrow zi-icon-up"></i>
-              </div>
+              <Select
+                value={target}
+                placeholder="选择要执行分析的函数"
+                onChange={value => {
+                  setTarget(value);
+                }}
+              >
+                {funcNames.map(value => (
+                  <Select.Option value={value} key={value}>
+                    {value}
+                  </Select.Option>
+                ))}
+              </Select>
+
               <div
                 className={`zi-btn primary ${styles.items}`}
                 onClick={handleRun}

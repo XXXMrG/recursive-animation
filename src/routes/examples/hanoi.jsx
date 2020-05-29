@@ -9,18 +9,19 @@ import withAnimation from '../../hoc/withAnimation';
 import { getHanoiTips } from '../../util/makeTips';
 import Stack from '../../components/Stack';
 import Ace from '../../components/Ace';
+import { Text, Select } from '@zeit-ui/react';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const layout = {
   lg: [
     { i: 'canvas', x: 1, y: 1, w: 6, h: 4, static: true },
-    { i: 'stack', x: 1, y: 5.5, w: 6, h: 5, static: true },
+    { i: 'stack', x: 1, y: 5.5, w: 6, h: 6, static: true },
     { i: 'run', x: 3, y: 0, w: 2, h: 0.5, static: true },
     { i: 'select', x: 1, y: 0, w: 2, h: 0.5, static: true },
     { i: 'moves', x: 6, y: 0, w: 1, h: 0.5, static: true },
     { i: 'code', x: 7.5, y: 0, w: 4, h: 3, static: true },
-    { i: 'table', x: 7.5, y: 3.5, w: 4, h: 6, static: true },
+    { i: 'table', x: 7.5, y: 5.5, w: 4, h: 7, static: true },
   ],
 };
 
@@ -95,26 +96,22 @@ const Hanoi = () => {
           </div>
         </div>
         <div key="select">
-          <div className="zi-select-container">
-            <select
-              className="zi-select"
-              value={diskNumber}
-              onChange={e => {
-                setDiskNumber(parseInt(e.target.value, 10));
-                // to replay animation.
-                setRun(false);
-                setMoves(0);
-              }}
-            >
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-            </select>
-            <i className="arrow zi-icon-up"></i>
-          </div>
+          <Select
+            value={diskNumber}
+            onChange={value => {
+              setDiskNumber(parseInt(value, 10));
+              // to replay animation.
+              setRun(false);
+              setMoves(0);
+            }}
+          >
+            <Select.Option value={3}>3</Select.Option>
+            <Select.Option value={4}>4</Select.Option>
+            <Select.Option value={5}>5</Select.Option>
+            <Select.Option value={6}>6</Select.Option>
+            <Select.Option value={7}>7</Select.Option>
+            <Select.Option value={8}>8</Select.Option>
+          </Select>
         </div>
         <div key="moves">
           <div className={`zi-card ${styles.card}`}>Moves:{moves}</div>
@@ -130,20 +127,29 @@ const Hanoi = () => {
           </div>
         </div>
         <div key="code">
+          <div className={styles.title}>
+            <Text h3>Check execution stack</Text>
+          </div>
           <Ace defaultValue={defaultValue} options={{ readOnly: true }} />
         </div>
+        <div key="stack" style={{ padding: 0 }}>
+          <div className={styles.title}>
+            <Text h3>Recursive Stack Animation</Text>
+          </div>
+          <div className={`zi-card ${styles.stackCard}`}>
+            <Stack data={stack.data} />
+          </div>
+        </div>
         <div key="table">
+          <div className={styles.title}>
+            <Text h3>Check execution stack</Text>
+          </div>
           <div className={`zi-card ${styles.table}`}>
             <Table
               columns={columns}
               data={stack.data}
               loading={stack.loading}
             />
-          </div>
-        </div>
-        <div key="stack" style={{ padding: 0 }}>
-          <div className={`zi-card ${styles.card}`}>
-            <Stack data={stack.data} />
           </div>
         </div>
       </ResponsiveGridLayout>

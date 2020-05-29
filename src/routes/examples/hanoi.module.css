@@ -5,6 +5,18 @@
 
 .table {
   width: 100%;
-  height: 100%;
+  height: 90%;
   overflow: auto;
+}
+
+.stackCard {
+  width: 100%;
+  height: 90%;
+}
+
+.title {
+  width: 100%;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
 }

@@ -22,6 +22,18 @@
 
 .table {
   width: 100%;
-  height: 100%;
+  height: 90%;
   overflow: auto;
+}
+
+.title {
+  width: 100%;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.stackCard {
+  width: 100%;
+  height: 90%;
 }
