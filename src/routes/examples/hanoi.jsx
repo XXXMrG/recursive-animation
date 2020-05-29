@@ -15,13 +15,10 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const layout = {
   lg: [
-    { i: 'canvas', x: 1, y: 1, w: 6, h: 4, static: true },
-    { i: 'stack', x: 1, y: 5.5, w: 6, h: 6, static: true },
-    { i: 'run', x: 3, y: 0, w: 2, h: 0.5, static: true },
-    { i: 'select', x: 1, y: 0, w: 2, h: 0.5, static: true },
-    { i: 'moves', x: 6, y: 0, w: 1, h: 0.5, static: true },
+    { i: 'canvas', x: 1, y: 0, w: 6, h: 4, static: true },
+    { i: 'stack', x: 1, y: 5, w: 6, h: 6, static: true },
     { i: 'code', x: 7.5, y: 0, w: 4, h: 3, static: true },
-    { i: 'table', x: 7.5, y: 5.5, w: 4, h: 7, static: true },
+    { i: 'table', x: 7.5, y: 5, w: 4, h: 7, static: true },
   ],
 };
 
@@ -77,46 +74,43 @@ const Hanoi = () => {
         style={{ boxSizing: 'border-box' }}
         containerPadding={[10, 25]}
       >
-        <div key="run">
-          <div
-            className="zi-btn primary"
-            onClick={() => {
-              setRun(true);
-            }}
-          >
-            Run
-          </div>
-          <div
-            className="zi-btn primary"
-            onClick={() => {
-              setOpen(true);
-            }}
-          >
-            open
-          </div>
-        </div>
-        <div key="select">
-          <Select
-            value={diskNumber}
-            onChange={value => {
-              setDiskNumber(parseInt(value, 10));
-              // to replay animation.
-              setRun(false);
-              setMoves(0);
-            }}
-          >
-            <Select.Option value={3}>3</Select.Option>
-            <Select.Option value={4}>4</Select.Option>
-            <Select.Option value={5}>5</Select.Option>
-            <Select.Option value={6}>6</Select.Option>
-            <Select.Option value={7}>7</Select.Option>
-            <Select.Option value={8}>8</Select.Option>
-          </Select>
-        </div>
-        <div key="moves">
-          <div className={`zi-card ${styles.card}`}>Moves:{moves}</div>
-        </div>
         <div key="canvas" style={{ padding: 0 }}>
+          <div className={styles.title}>
+            <Text h3>选择汉诺塔层数并执行</Text>
+            <Select
+              value={diskNumber}
+              onChange={value => {
+                setDiskNumber(parseInt(value, 10));
+                // to replay animation.
+                setRun(false);
+                setMoves(0);
+              }}
+            >
+              <Select.Option value={3}>3</Select.Option>
+              <Select.Option value={4}>4</Select.Option>
+              <Select.Option value={5}>5</Select.Option>
+              <Select.Option value={6}>6</Select.Option>
+              <Select.Option value={7}>7</Select.Option>
+              <Select.Option value={8}>8</Select.Option>
+            </Select>
+            <div
+              className="zi-btn primary auto"
+              onClick={() => {
+                setRun(true);
+              }}
+            >
+              Run
+            </div>
+            <div className="zi-card">Moves:{moves}</div>
+            <div
+              className="zi-btn success auto"
+              onClick={() => {
+                setOpen(true);
+              }}
+            >
+              Tips
+            </div>
+          </div>
           <div className={`zi-card ${styles.card}`}>
             <HanoiAnime
               isRun={run}
