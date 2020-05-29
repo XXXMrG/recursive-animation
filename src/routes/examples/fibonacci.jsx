@@ -15,7 +15,7 @@ const pages = getPGTips().map((value, index) => withAnimation(value, index));
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const Fibonacci = () => {
-  const [deep, setDeep] = useState(3);
+  const [deep, setDeep] = useState('3');
   const [stack, setStack] = useState({ data: [], loading: false });
   const [open, setOpen] = useState(true);
   const defaultValue = `function fibonacci(num) {
@@ -69,17 +69,17 @@ const Fibonacci = () => {
               size="large"
               value={deep}
               onChange={value => {
-                setDeep(parseInt(value, 10));
+                setDeep(value);
               }}
             >
-              <Select.Option value={3}>3</Select.Option>
-              <Select.Option value={4}>4</Select.Option>
-              <Select.Option value={5}>5</Select.Option>
+              <Select.Option value="3">3</Select.Option>
+              <Select.Option value="4">4</Select.Option>
+              <Select.Option value="5">5</Select.Option>
             </Select>
           </div>
           <div className={`zi-card ${styles.card}`}>
             <div className={styles.animation}>
-              <Fibtree number={deep} getStack={setStack} />
+              <Fibtree number={parseInt(deep, 10)} getStack={setStack} />
             </div>
             <div className={styles.description}>
               <p>

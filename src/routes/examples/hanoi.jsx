@@ -26,7 +26,7 @@ const pages = getHanoiTips().map((value, index) => withAnimation(value, index));
 
 const Hanoi = () => {
   const [run, setRun] = useState(false);
-  const [diskNumber, setDiskNumber] = useState(3);
+  const [diskNumber, setDiskNumber] = useState('3');
   const [moves, setMoves] = useState(0);
   const [open, setOpen] = useState(false);
   const [stack, setStack] = useState({ data: [], loading: false });
@@ -80,18 +80,18 @@ const Hanoi = () => {
             <Select
               value={diskNumber}
               onChange={value => {
-                setDiskNumber(parseInt(value, 10));
+                setDiskNumber(value);
                 // to replay animation.
                 setRun(false);
                 setMoves(0);
               }}
             >
-              <Select.Option value={3}>3</Select.Option>
-              <Select.Option value={4}>4</Select.Option>
-              <Select.Option value={5}>5</Select.Option>
-              <Select.Option value={6}>6</Select.Option>
-              <Select.Option value={7}>7</Select.Option>
-              <Select.Option value={8}>8</Select.Option>
+              <Select.Option value="3">3</Select.Option>
+              <Select.Option value="4">4</Select.Option>
+              <Select.Option value="5">5</Select.Option>
+              <Select.Option value="6">6</Select.Option>
+              <Select.Option value="7">7</Select.Option>
+              <Select.Option value="8">8</Select.Option>
             </Select>
             <div
               className="zi-btn primary auto"
@@ -114,7 +114,7 @@ const Hanoi = () => {
           <div className={`zi-card ${styles.card}`}>
             <HanoiAnime
               isRun={run}
-              disks={diskNumber}
+              disks={parseInt(diskNumber, 10)}
               getMoves={setMoves}
               getStack={setStack}
             />
