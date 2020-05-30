@@ -63,7 +63,7 @@ const Hanoi = () => {
     setOpen(false);
   };
   useEffect(() => {
-    setOpen(false);
+    setOpen(true);
   }, []);
   return (
     <>

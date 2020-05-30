@@ -8,10 +8,10 @@ import Table from '../../components/Table';
 import Stack from '../../components/Stack';
 import { Select, Text, Button } from '@zeit-ui/react';
 import ModelWithPage from '../../components/ModelWithPage';
-import { getPGTips } from '../../util/makeTips';
+import { getFibTips } from '../../util/makeTips';
 import withAnimation from '../../hoc/withAnimation';
 
-const pages = getPGTips().map((value, index) => withAnimation(value, index));
+const pages = getFibTips().map((value, index) => withAnimation(value, index));
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const Fibonacci = () => {
@@ -131,7 +131,7 @@ const Fibonacci = () => {
       </ResponsiveGridLayout>
       <ModelWithPage
         title="如何使用？"
-        subTitle="查看递归函数的执行过程"
+        subTitle="斐波那契问题和递归树"
         open={open}
         onClose={closeHandler}
         pages={pages}
