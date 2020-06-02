@@ -10,19 +10,19 @@
 ## Install
 
 ```sh
-npm install
+yarn install
 ```
 
 ## Usage
 
 ```sh
-npm run start
+yarn start
 ```
 
 ## Run tests
 
 ```sh
-npm run test
+yarn run test
 ```
 
 ## Author
